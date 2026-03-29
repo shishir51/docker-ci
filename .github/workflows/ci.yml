@@ -21,7 +21,12 @@ jobs:
     - name: Run container test
       run: | 
         docker ps -a
-        docker logs $(docker ps -q)
+        CONTAINER_ID=$(docker ps -aq | head -n 1)
+        if [-n "$CONTAINER_ID"]; then
+          docker logs $CONTAINER_ID
+        else
+          echo "No container found"
+        fi
         docker run -d -p 5000:5000 my-app
         echo "Waiting for app to start..."
         sleep 5
