@@ -5,6 +5,6 @@ app = Flask(_name_)
 def hello():
   return "Hello, CI/CD Docker!"
   
-if (__name__) == "__main__"
+if (__name__) == "__main__":
   app.run(host="0.0.0.0", port=5000)
 
