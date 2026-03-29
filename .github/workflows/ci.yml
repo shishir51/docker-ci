@@ -20,14 +20,17 @@ jobs:
 
     - name: Run container test
       run: | 
+        docker run -d -p 5000:5000 my-app
         docker ps -a
+        
         CONTAINER_ID=$(docker ps -aq | head -n 1)
-        if [-n "$CONTAINER_ID"]; then
+        if [ ! -z "$CONTAINER_ID" ]; then
+          echo "Container found: $CONTAINER_ID"
           docker logs $CONTAINER_ID
         else
           echo "No container found"
         fi
-        docker run -d -p 5000:5000 my-app
+        
         echo "Waiting for app to start..."
         sleep 5
         curl --retry 10 --retry-delay 3 --retry-connrefused http://localhost:5000
