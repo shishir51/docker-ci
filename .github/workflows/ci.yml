@@ -50,7 +50,10 @@ jobs:
               run: |
                     echo "Username length: ${#DOCKER_USERNAME}"
                     echo "${{ secrets.SHISHIR51_TOKEN }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+              env:
+                  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
                     
+                   
             - name: Build and Push image
               run: |
                     docker build -t shishir51/docker-ci .
