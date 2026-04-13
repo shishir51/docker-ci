@@ -58,6 +58,16 @@ jobs:
               run: |
                     docker build -t shishir51/docker-ci .
                     docker push shishir51/docker-ci
-
+            - name: Checkout code
+              uses: actions/checkout@v4
+            
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: '3.9'
+            
+            - name: Install dependencies
+              run: pip install -r requirements.txt
+  
             - name: Run Pytest
               run: pytest -v -s     
