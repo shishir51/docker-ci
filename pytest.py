@@ -1,5 +1,5 @@
 Python
 
-def Test_Home
-    echo "Run the first pytest"
+def test_home():
+    print("Running test..")
     assert True
