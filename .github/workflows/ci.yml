@@ -36,12 +36,20 @@ jobs:
                     sleep 10
                     curl --retry 15 --retry-delay 3 --retry-connrefused http://localhost:5000
                 
+            - name: Debug secrets
+              run: |
+                    if [ -z "$DOCKER_USERNAME" ]; then
+                        echo "Username is EMPTY"
+                    else
+                        echo "Username is Set"
+                    fi
+              env:
+                  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+    
             - name: Login to Docker Hub
               run: |
                     echo "Username length: ${#DOCKER_USERNAME}"
-                    echo "${{ secrets.SHISHIR51_TOKEN }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-              env:
-                  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+                    echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
                     
             - name: Build and Push image
               run: |
